@@ -18,7 +18,6 @@ class MercadoBitcoin {
  
         let config = {
             headers: {
-                'Content-Type': 'application/json',
                 'Accept': 'application/json',
             }
         }
