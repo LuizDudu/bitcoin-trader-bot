@@ -1,7 +1,7 @@
 require('dotenv-safe').config();
 
 const { MercadoBitcoin } = require("./api");
-var infoApi = new MercadoBitcoin({ currency: 'MENGOFT' });
+var infoApi = new MercadoBitcoin({ currency: 'ETH' });
 
 setInterval(async () => {
     const tick = await infoApi.ticker();
