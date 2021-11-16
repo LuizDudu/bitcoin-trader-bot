@@ -1,32 +1,32 @@
 //MERCADO BITCOIN
 const axios = require('axios');
 const crypto = require('crypto');
-const querystring = require('querystring');
+const qs = require('querystring');
 
 const ENDPOINT_API = 'https://www.mercadobitcoin.net/api/';
 const ENDPOINT_TRADE_PATH = "/tapi/v3/"
 const ENDPOINT_TRADE_API = 'https://www.mercadobitcoin.net' + ENDPOINT_TRADE_PATH
  
 class MercadoBitcoin {
- 
+
     constructor(config) {
         this.config = {
             CURRENCY: config.currency
         }
     }
- 
+
     ticker() {
         return this.call('ticker');
     }
- 
+
     async call(method) {
- 
+
         let config = {
             headers: {
                 'Accept': 'application/json',
             }
         }
- 
+
         try {
             const response = await axios.get(`${ENDPOINT_API}${this.config.CURRENCY}/${method}`, config);
             return response.data;
@@ -63,7 +63,9 @@ class ApiTrade {
 
         const tapi_nonce = new Date().getTime();
         let queryString = qs.stringify({ tapi_method, tapi_nonce });
-        if (parameters) queryString += `&${qs.stringify(parameters)}`;
+        if (parameters) {
+            queryString += `&${qs.stringify(parameters)}`;
+        }
 
         const signature = crypto.createHmac('sha512', this.config.SECRET)
             .update(`${ENDPOINT_TRADE_PATH}?${queryString}`)
